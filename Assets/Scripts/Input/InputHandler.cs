@@ -10,7 +10,7 @@ public class InputHandler : MonoBehaviour
     public Vector2 InputVector { get; private set; }
     public Vector2 MousePosition { get; private set; }
 
-
+    private InputActions inputActions;
 
     private void Awake()
     {
@@ -22,14 +22,17 @@ public class InputHandler : MonoBehaviour
         {
             instance = this;
         }
+
+        inputActions = new InputActions();
+        inputActions.CharacterControl.Enable();
     }
 
     private void Update()
     {
-        var h = Input.GetAxis("Horisontal");
-        var v = Input.GetAxis("Vertical");
-        InputVector = new Vector2(h, v);
 
+        InputVector = inputActions.CharacterControl.Move.ReadValue<Vector2>();
+        Debug.Log(InputVector);
         MousePosition = Input.mousePosition;
+
     }
 }

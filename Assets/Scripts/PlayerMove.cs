@@ -7,15 +7,15 @@ public class PlayerMove : MonoBehaviour
 {
     [SerializeField]
     private Animator playerAnimator;
-    private InputHandler input;
+    private float acceleration = 5f, maxVelocity = 1f;
+    private Vector2 velocity = Vector2.zero;
 
-    private void Awake()
-    {
-        input = GetComponent<InputHandler>();
-    }
+
     private void Update()
     {
-        playerAnimator.SetFloat("Vertical", input.InputVector.y);
-        playerAnimator.SetFloat("Vertical", input.InputVector.x);
+        velocity = Vector2.MoveTowards(velocity, InputHandler.instance.InputVector * maxVelocity, acceleration * Time.deltaTime);
+            
+        playerAnimator.SetFloat("Vertical", velocity.y);
+        playerAnimator.SetFloat("Horisontal", velocity.x);
     }
 }

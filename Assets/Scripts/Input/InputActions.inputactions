@@ -1,5 +1,5 @@
 {
-    "name": "Player",
+    "name": "InputActions",
     "maps": [
         {
             "name": "CharacterControl",
@@ -10,7 +10,7 @@
                     "type": "Value",
                     "id": "e1fb21dd-2b2c-41c3-847e-0acec03de814",
                     "expectedControlType": "Vector2",
-                    "processors": "NormalizeVector2",
+                    "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
@@ -82,8 +82,19 @@
                 },
                 {
                     "name": "",
+                    "id": "8373ac94-b8ae-4945-8e0c-acb9f7bab51b",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "f0d456b1-70f1-46ae-907e-662271634bb5",
-                    "path": "<Keyboard>/leftShift",
+                    "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
