@@ -9,6 +9,7 @@ public class InputHandler : MonoBehaviour
 
     public Vector2 InputVector { get; private set; }
     public Vector2 MousePosition { get; private set; }
+    
 
     private InputActions inputActions;
 
@@ -29,7 +30,7 @@ public class InputHandler : MonoBehaviour
 
     private void Update()
     {
-
+        
         InputVector = inputActions.CharacterControl.Move.ReadValue<Vector2>();
         Debug.Log(InputVector);
         MousePosition = Input.mousePosition;
