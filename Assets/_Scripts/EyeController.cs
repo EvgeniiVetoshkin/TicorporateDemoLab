@@ -20,18 +20,17 @@ public class EyeController : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, playerTop.position - transform.position, out hit  /*, Vector3.Distance(transform.position, playerTop.position)*/))
+        if (Physics.Raycast(transform.position, playerTop.position - transform.position, out hit, Vector3.Distance(transform.position, playerTop.position)))
         { 
             if (!hit.transform.CompareTag("Bush"))
             {
-                
-
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(playerTop.position - transform.position, Vector3.up), Time.deltaTime);
-                
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(playerTop.position - transform.position, Vector3.up), Time.deltaTime * 80f);
+                //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(playerTop.position - transform.position, Vector3.up), 0.1f);
             }
             else
                 Debug.Log("i`m pretending that i don`t see you, but i see you");
         }
+
 
     }
 }

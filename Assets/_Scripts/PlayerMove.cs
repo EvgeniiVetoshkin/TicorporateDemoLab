@@ -20,10 +20,12 @@ public class PlayerMove : MonoBehaviour
         
         Vector3 povorot = new Vector3(InputHandler.instance.InputVector.x, 0, InputHandler.instance.InputVector.y);
 
-        Quaternion povorot2 = Quaternion.Euler(0, Camera.main.transform.rotation.eulerAngles.y, 0);
-        povorot =  povorot2 * povorot;
+        Quaternion cameraRotation = Quaternion.Euler(0, Camera.main.transform.rotation.eulerAngles.y, 0);
+        povorot =  cameraRotation * povorot;
         Vector2 dir = new Vector2(povorot.x, povorot.z);
         velocity = Vector2.MoveTowards(velocity, dir * maxVelocity, acceleration * Time.deltaTime);
+
+
 
         playerAnimator.SetFloat("Vertical", velocity.y);
         playerAnimator.SetFloat("Horisontal", velocity.x);
