@@ -9,7 +9,8 @@ public class InputHandler : MonoBehaviour
 
     public Vector2 InputVector { get; private set; }
     public Vector2 MousePosition { get; private set; }
-    
+    public bool isCtrlPressed { get; private set; }
+
 
     private InputActions inputActions;
 
@@ -32,8 +33,7 @@ public class InputHandler : MonoBehaviour
     {
         
         InputVector = inputActions.CharacterControl.Move.ReadValue<Vector2>();
-        Debug.Log(InputVector);
         MousePosition = Input.mousePosition;
-
+        isCtrlPressed = inputActions.CharacterControl.Crouch.IsPressed();
     }
 }

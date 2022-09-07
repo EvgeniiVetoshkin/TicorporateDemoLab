@@ -17,5 +17,6 @@ public class PlayerMove : MonoBehaviour
             
         playerAnimator.SetFloat("Vertical", velocity.y);
         playerAnimator.SetFloat("Horisontal", velocity.x);
+        playerAnimator.SetBool("Crouch", InputHandler.instance.isCtrlPressed);
     }
 }
