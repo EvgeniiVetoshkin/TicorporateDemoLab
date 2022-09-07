@@ -44,6 +44,24 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CameraRotate"",
+                    ""type"": ""Button"",
+                    ""id"": ""77c3763e-5ef9-440f-8efa-6cc325ff4a55"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseDelta"",
+                    ""type"": ""Value"",
+                    ""id"": ""09995ea7-fa73-4c33-9c63-fbe03c2f6d22"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -123,6 +141,28 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""44d17495-8f2d-4654-a6da-4ff5bf4badf1"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CameraRotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a3a89e43-f5f3-4a34-895a-e696e023b010"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseDelta"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -133,6 +173,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_CharacterControl = asset.FindActionMap("CharacterControl", throwIfNotFound: true);
         m_CharacterControl_Move = m_CharacterControl.FindAction("Move", throwIfNotFound: true);
         m_CharacterControl_Crouch = m_CharacterControl.FindAction("Crouch", throwIfNotFound: true);
+        m_CharacterControl_CameraRotate = m_CharacterControl.FindAction("CameraRotate", throwIfNotFound: true);
+        m_CharacterControl_MouseDelta = m_CharacterControl.FindAction("MouseDelta", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -194,12 +236,16 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private ICharacterControlActions m_CharacterControlActionsCallbackInterface;
     private readonly InputAction m_CharacterControl_Move;
     private readonly InputAction m_CharacterControl_Crouch;
+    private readonly InputAction m_CharacterControl_CameraRotate;
+    private readonly InputAction m_CharacterControl_MouseDelta;
     public struct CharacterControlActions
     {
         private @InputActions m_Wrapper;
         public CharacterControlActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_CharacterControl_Move;
         public InputAction @Crouch => m_Wrapper.m_CharacterControl_Crouch;
+        public InputAction @CameraRotate => m_Wrapper.m_CharacterControl_CameraRotate;
+        public InputAction @MouseDelta => m_Wrapper.m_CharacterControl_MouseDelta;
         public InputActionMap Get() { return m_Wrapper.m_CharacterControl; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -215,6 +261,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Crouch.started -= m_Wrapper.m_CharacterControlActionsCallbackInterface.OnCrouch;
                 @Crouch.performed -= m_Wrapper.m_CharacterControlActionsCallbackInterface.OnCrouch;
                 @Crouch.canceled -= m_Wrapper.m_CharacterControlActionsCallbackInterface.OnCrouch;
+                @CameraRotate.started -= m_Wrapper.m_CharacterControlActionsCallbackInterface.OnCameraRotate;
+                @CameraRotate.performed -= m_Wrapper.m_CharacterControlActionsCallbackInterface.OnCameraRotate;
+                @CameraRotate.canceled -= m_Wrapper.m_CharacterControlActionsCallbackInterface.OnCameraRotate;
+                @MouseDelta.started -= m_Wrapper.m_CharacterControlActionsCallbackInterface.OnMouseDelta;
+                @MouseDelta.performed -= m_Wrapper.m_CharacterControlActionsCallbackInterface.OnMouseDelta;
+                @MouseDelta.canceled -= m_Wrapper.m_CharacterControlActionsCallbackInterface.OnMouseDelta;
             }
             m_Wrapper.m_CharacterControlActionsCallbackInterface = instance;
             if (instance != null)
@@ -225,6 +277,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Crouch.started += instance.OnCrouch;
                 @Crouch.performed += instance.OnCrouch;
                 @Crouch.canceled += instance.OnCrouch;
+                @CameraRotate.started += instance.OnCameraRotate;
+                @CameraRotate.performed += instance.OnCameraRotate;
+                @CameraRotate.canceled += instance.OnCameraRotate;
+                @MouseDelta.started += instance.OnMouseDelta;
+                @MouseDelta.performed += instance.OnMouseDelta;
+                @MouseDelta.canceled += instance.OnMouseDelta;
             }
         }
     }
@@ -233,5 +291,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
+        void OnCameraRotate(InputAction.CallbackContext context);
+        void OnMouseDelta(InputAction.CallbackContext context);
     }
 }
